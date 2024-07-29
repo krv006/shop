@@ -1,7 +1,6 @@
 import uuid
 
-from django.db.models import Model, DateTimeField, UUIDField, TextField, CharField, IntegerField, ForeignKey, CASCADE, \
-    BooleanField
+from django.db.models import Model, DateTimeField, UUIDField, TextField, CharField, IntegerField, ForeignKey, CASCADE
 from mptt.models import MPTTModel, TreeForeignKey
 
 
@@ -29,21 +28,19 @@ class Category(MPTTModel, CreatedAtBase):
         return self.name
 
 
-class Product(Base, CreatedAtBase):
+class Product(Base):
     name = CharField(max_length=255)
     description = TextField()
     price = IntegerField()
-    category = ForeignKey('apps.Category', CASCADE, related_name='category')
-    is_premium = BooleanField(default=False)
+    category = ForeignKey(Category, on_delete=CASCADE, related_name='category')
 
     def __str__(self):
         return self.name
 
 
-class Warehouse(Model):
+class Warehouse(Base):
     name = CharField(max_length=255)
     price = IntegerField()
 
     def __str__(self):
         return self.name
-
