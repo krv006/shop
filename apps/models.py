@@ -1,6 +1,7 @@
 import uuid
 
-from django.db.models import Model, DateTimeField, UUIDField, TextField, CharField, IntegerField, ForeignKey, CASCADE
+from django.db.models import Model, DateTimeField, UUIDField, TextField, CharField, IntegerField, ForeignKey, CASCADE, \
+    DateField, DecimalField, ManyToManyField
 from mptt.models import MPTTModel, TreeForeignKey
 
 
@@ -44,3 +45,14 @@ class Warehouse(Base):
 
     def __str__(self):
         return self.name
+
+
+class Debtors(Base):
+    full_name = CharField(max_length=250)
+    phone_number = CharField(max_length=250, blank = True)
+    product = ManyToManyField('apps.Product', related_name='debtor_product')
+    date = DateField(auto_now_add=True)
+    price = DecimalField(max_digits=11, decimal_places=3)
+
+    def __str__(self):
+        return self.full_name
