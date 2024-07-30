@@ -45,7 +45,6 @@ class Product(Base):
         return self.departure_price - self.arrival_price
 
 
-
 class Warehouse(Base):
     name = CharField(max_length=255)
     price = IntegerField()
