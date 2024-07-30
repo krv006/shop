@@ -1,19 +1,51 @@
-from rest_framework.fields import SerializerMethodField
-from rest_framework.serializers import ModelSerializer
-
+from rest_framework.serializers import ModelSerializer, SerializerMethodField, ReadOnlyField
 from apps.models import Category, Product, Debtors
+
+from decimal import Decimal
+import requests
+
+
+class ParentCategorySerializer(ModelSerializer):
+    class Meta:
+        model = Category
+        fields = 'name',
 
 
 class CategorySerializer(ModelSerializer):
+    parent = ParentCategorySerializer(read_only=True)
+
     class Meta:
         model = Category
         fields = 'id', 'name', 'parent'
 
 
 class ProductSerializer(ModelSerializer):
+    category = ReadOnlyField(source='category.name')
+    price_usd = SerializerMethodField()
+    price_uzs = SerializerMethodField()
+
     class Meta:
         model = Product
-        fields = 'id', 'description', 'price', 'category'
+        fields = 'id', 'description', 'quantity', 'price_usd', 'price_uzs', 'arrival_price', 'benefit', 'category'
+
+    def get_price_usd(self, obj):
+        amount = Decimal(obj.departure_price)
+        from_currency = 'USD'
+        to_currency = 'UZS'
+        conversion_rate = self.get_conversion_rate(from_currency, to_currency)
+        if conversion_rate is None:
+            return None
+        converted_amount = amount / Decimal(conversion_rate)
+        return converted_amount
+
+    def get_price_uzs(self, obj):
+        return obj.departure_price
+
+    def get_conversion_rate(self, from_currency, to_currency):
+        API_ENDPOINT = "https://v6.exchangerate-api.com/v6/0f84fd60fa278bb9b3c8e126/latest/{}".format(from_currency)
+        response = requests.get(API_ENDPOINT)
+        data = response.json()
+        return Decimal(data['conversion_rates'].get(to_currency, 0))
 
 
 class DebtorsSerializer(ModelSerializer):
