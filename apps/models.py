@@ -21,7 +21,7 @@ class Base(CreatedAtBase):
         abstract = True
 
 
-class Category(MPTTModel, CreatedAtBase):
+class Category(MPTTModel, CreatedAtBase):  # category
     name = CharField(max_length=255)
     parent = TreeForeignKey('self', on_delete=CASCADE, null=True, blank=True, related_name='children')
 
@@ -29,7 +29,7 @@ class Category(MPTTModel, CreatedAtBase):
         return self.name
 
 
-class Product(Base):
+class Product(Base):  # product
     name = CharField(max_length=255)
     description = TextField()
     arrival_price = IntegerField()  # kelish
@@ -45,7 +45,7 @@ class Product(Base):
         return self.departure_price - self.arrival_price
 
 
-class Warehouse(Base):
+class Warehouse(Base):  # sklad
     name = CharField(max_length=255)
     price = IntegerField()
 
@@ -53,7 +53,7 @@ class Warehouse(Base):
         return self.name
 
 
-class Debtors(Base):
+class Debtors(Base):  # qarizdorlar
     full_name = CharField(max_length=250)
     phone_number = CharField(max_length=250, blank=True)
     product = ManyToManyField('apps.Product', related_name='debtor_product')

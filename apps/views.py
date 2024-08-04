@@ -1,6 +1,6 @@
-from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, RetrieveAPIView
-from apps.models import Category, Product, Debtors
-from apps.serializer import CategorySerializer, ProductSerializer, DebtorsSerializer
+from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, RetrieveAPIView, ListCreateAPIView
+from apps.models import Category, Product, Debtors, Warehouse
+from apps.serializer import CategorySerializer, ProductSerializer, DebtorsSerializer, WarehouseModelSerializer
 
 from rest_framework.pagination import PageNumberPagination
 
@@ -11,19 +11,13 @@ class Pagination(PageNumberPagination):
     max_page_size = 100
 
 
-class CategoryListAPIView(ListAPIView):
+class CategoryListCreateAPIView(ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     pagination_class = Pagination
 
 
-class ProductListAPIView(ListAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-    pagination_class = Pagination
-
-
-class ProductCreateAPIView(CreateAPIView):
+class ProductListCreateAPIView(ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
@@ -33,17 +27,17 @@ class ProductUpdateAPIView(UpdateAPIView):
     serializer_class = ProductSerializer
 
 
-class DebtorsListAPIView(ListAPIView):
+class DebtorsListCreateAPIView(ListCreateAPIView):
     queryset = Debtors.objects.all()
     serializer_class = DebtorsSerializer
     pagination_class = Pagination
 
 
-class DebtorsCreateAPIView(CreateAPIView):
-    queryset = Debtors.objects.all()
-    serializer_class = DebtorsSerializer
-
-
 class DebtorsUpdateAPIView(UpdateAPIView):
     queryset = Debtors.objects.all()
     serializer_class = DebtorsSerializer
+
+
+class WarehouseListCreateAPIView(ListCreateAPIView):
+    queryset = Warehouse.objects.all()
+    serializer_class = WarehouseModelSerializer

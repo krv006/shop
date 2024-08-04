@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer, SerializerMethodField, ReadOnlyField
-from apps.models import Category, Product, Debtors
+from apps.models import Category, Product, Debtors, Warehouse
 
 from decimal import Decimal
 import requests
@@ -8,7 +8,7 @@ import requests
 class ParentCategorySerializer(ModelSerializer):
     class Meta:
         model = Category
-        fields = 'name',
+        fields = 'id', 'name',
 
 
 class CategorySerializer(ModelSerializer):
@@ -16,17 +16,22 @@ class CategorySerializer(ModelSerializer):
 
     class Meta:
         model = Category
-        fields = 'id', 'name', 'parent'
+        fields = 'id', 'name', 'parent',
 
 
 class ProductSerializer(ModelSerializer):
-    category = ReadOnlyField(source='category.name')
+    category = SerializerMethodField()
     price_usd = SerializerMethodField()
     price_uzs = SerializerMethodField()
 
     class Meta:
         model = Product
-        fields = 'id', 'description', 'quantity', 'price_usd', 'price_uzs', 'arrival_price', 'benefit', 'category'
+        fields = 'id', 'description', 'quantity', 'price_usd', 'price_uzs', 'arrival_price', 'benefit', 'category',
+
+    def get_category(self, obj):
+        if obj.category.children.exists():
+            return {"category": CategorySerializer(obj.category).data}
+        return obj.category.name
 
     def get_price_usd(self, obj):
         amount = Decimal(obj.departure_price)
@@ -51,4 +56,15 @@ class ProductSerializer(ModelSerializer):
 class DebtorsSerializer(ModelSerializer):
     class Meta:
         model = Debtors
-        fields = 'id', 'full_name', 'phone_number', 'date', 'price'
+        fields = 'id', 'full_name', 'phone_number', 'date', 'price',
+
+
+# "category"{
+#     "category" : "askjfvbs"
+# }
+
+
+class WarehouseModelSerializer(ModelSerializer):
+    class Meta:
+        model = Warehouse
+        fields = 'name', 'price'
