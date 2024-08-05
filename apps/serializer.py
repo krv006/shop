@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer, SerializerMethodField, ReadOnlyField
-from apps.models import Category, Product, Debtors, Warehouse
+from apps.models import Category, Product, Debtors, Warehouse, ManagerAdmin
 
 from decimal import Decimal
 import requests
@@ -68,3 +68,14 @@ class WarehouseModelSerializer(ModelSerializer):
     class Meta:
         model = Warehouse
         fields = 'name', 'price'
+
+
+
+class ManagerAdminSerializer(ModelSerializer):
+    amount_benefit = ReadOnlyField()
+
+    class Meta:
+        model = ManagerAdmin
+        fields = '__all__'
+
+

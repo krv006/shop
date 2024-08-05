@@ -1,6 +1,7 @@
 from django.urls import path
 from apps.views import ProductListCreateAPIView, DebtorsUpdateAPIView, \
-    ProductUpdateAPIView, DebtorsListCreateAPIView, CategoryListCreateAPIView, WarehouseListCreateAPIView
+    ProductUpdateAPIView, DebtorsListCreateAPIView, CategoryListCreateAPIView, WarehouseListCreateAPIView, \
+    ManagerAdminListCreateView, ManagerAdminRetrieveUpdateDestroyView
 
 urlpatterns = [
     path("category", CategoryListCreateAPIView.as_view()),
@@ -12,5 +13,8 @@ urlpatterns = [
     path("debtors/<int:pk>", DebtorsUpdateAPIView.as_view()),
 
     path("warehouse", WarehouseListCreateAPIView.as_view()),
+
+    path('manager-admin/', ManagerAdminListCreateView.as_view(), name='manager-admin-list-create'),
+    path('manager-admin/<int:pk>/', ManagerAdminRetrieveUpdateDestroyView.as_view(), name='manager-admin-detail'),
 
 ]

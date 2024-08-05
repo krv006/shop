@@ -1,6 +1,8 @@
-from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, RetrieveAPIView, ListCreateAPIView
-from apps.models import Category, Product, Debtors, Warehouse
-from apps.serializer import CategorySerializer, ProductSerializer, DebtorsSerializer, WarehouseModelSerializer
+from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, RetrieveAPIView, ListCreateAPIView, \
+    RetrieveUpdateDestroyAPIView
+from apps.models import Category, Product, Debtors, Warehouse, ManagerAdmin
+from apps.serializer import CategorySerializer, ProductSerializer, DebtorsSerializer, WarehouseModelSerializer, \
+    ManagerAdminSerializer
 
 from rest_framework.pagination import PageNumberPagination
 
@@ -41,3 +43,13 @@ class DebtorsUpdateAPIView(UpdateAPIView):
 class WarehouseListCreateAPIView(ListCreateAPIView):
     queryset = Warehouse.objects.all()
     serializer_class = WarehouseModelSerializer
+
+
+class ManagerAdminListCreateView(ListCreateAPIView):
+    queryset = ManagerAdmin.objects.all()
+    serializer_class = ManagerAdminSerializer
+
+
+class ManagerAdminRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
+    queryset = ManagerAdmin.objects.all()
+    serializer_class = ManagerAdminSerializer

@@ -28,3 +28,129 @@ worker -> kassir, meneger, admin va hk
 
 
 10-15 magazin ->
+
+
+
+
+
+1. mutable (set, dict, list), immutable data type (string, tuple)
+2. context manager custom yozish (asosan with bn birga ishlanadi)
+asosan menejerlarni boshqarish uchun ishlatiladi with bn ishlatilganlar esa havfsiz boshqarishdi taminlaydi
+
+resurslarni himoyalash va code ni osonlashtirish
+
+
+3. generator va decorator 1ta misol bilan
+
+Generator ketma ket qaytariladigan maxsus funksiyalar
+yield mana shu kalit soz bilan qiymatlarini bir birga qaytaradi
+
+
+def f(n):
+    a, b = 0, 1
+    for i in range(n):
+        yield a
+        a, b = b, a + b
+
+
+Dekorator boshqa funksiyalarni ozgartirish yokida kengaytirish uchun qollaniladi
+
+
+
+
+4. class da slots ga misol keltiring
+5. faylga yozishda (oxiriga yozish qaysi mode bilan)
+
+6. postgresqlda
+student
+    id name age
+    1 ali  15
+    2 vali 25
+    3 vali 25
+    4 ali  15
+    5 ali  18
+
+    ali  15 2
+    ali  18 1
+    vali 25 2
+    query ni yozing
+
+
+7. OOP encapsulation
+
+8. OOP polyphormism
+
+9. @property, @classmethod, @staticmethod
+
+
+10.  s = 'pythonuz' string recursive reverse qilish kk
+
+15:10
+
+
+slots yordamida atributlarni cheklash mumkin     __slots__ = ['name', 'age']
+
+class Person:
+    __slots__ = ['name', 'age']
+
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+
+
+with open('example.txt', 'a') as file:
+    file.write('Yangi qator\n')
+
+
+
+map funksiyasi, ro'yxatdagi (yoki boshqa iterable) har bir elementga berilgan funktsiyani qo'llash imkonini beradi. Natijada yangi iterable qaytariladi.
+
+
+def square(x):
+    return x ** 2
+
+# Ro'yxat
+numbers = [1, 2, 3, 4, 5]
+
+# map funktsiyasi
+squared_numbers = map(square, numbers)
+squared_numbers = list(squared_numbers)
+print(squared_numbers)
+
+filter esa uni filterlab beradi ichidan togirlab
+
+# Funktsiya
+def is_even(x):
+    return x % 2 == 0
+
+# Ro'yxat
+numbers = [1, 2, 3, 4, 5, 6]
+
+# filter funktsiyasi
+even_numbers = filter(is_even, numbers)
+
+# Natijani ro'yxatga aylantirish
+even_numbers_list = list(even_numbers)
+
+
+IMTHON P22 SAVOLLAR
+
+
+data type, list, set, tuple, dict, string
+map, filter
+context manager,
+
+Genrator
+enterhance
+
+encapsulation
+polimarfizm
+
+
+postgres -> group by, order by
+
+
+
+t = 1,2,3,4,5,6,7
+
