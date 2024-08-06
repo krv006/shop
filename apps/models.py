@@ -65,10 +65,10 @@ class Debtors(Base):  # qarizdorlar
 
 
 class ManagerAdmin(Model):
-    warehouse = ForeignKey('apps.Warehouse', CASCADE)
-    product = ManyToManyField('apps.Product')
-    debtors = ForeignKey('apps.Debtors', CASCADE)
+    product = ForeignKey('apps.Product', CASCADE)
 
     @property
     def amount_benefit(self):
-        return sum(product.benefit for product in self.product.all())
+        products = Product.objects.all()
+        total_benefit = sum(product.benefit for product in products)
+        return total_benefit

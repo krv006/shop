@@ -70,12 +70,9 @@ class WarehouseModelSerializer(ModelSerializer):
         fields = 'name', 'price'
 
 
-
 class ManagerAdminSerializer(ModelSerializer):
     amount_benefit = ReadOnlyField()
 
     class Meta:
         model = ManagerAdmin
         fields = '__all__'
-
-
