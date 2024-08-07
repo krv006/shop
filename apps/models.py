@@ -45,6 +45,15 @@ class Product(Base):  # product
         return self.departure_price - self.arrival_price
 
 
+class Sale(Model):
+    product = ForeignKey(Product, on_delete=CASCADE, related_name='sales')
+    date = DateField()
+    quantity = PositiveIntegerField()
+
+    def __str__(self):
+        return f"{self.product.name} - {self.quantity} pcs on {self.date}"
+
+
 class Warehouse(Base):  # sklad
     name = CharField(max_length=255)
     price = IntegerField()
