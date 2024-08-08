@@ -11,7 +11,7 @@ from rest_framework.views import APIView
 from .models import Product, Sale
 from apps.models import Category, Debtors, Warehouse, ManagerAdmin
 from apps.serializer import CategorySerializer, ProductSerializer, DebtorsSerializer, WarehouseModelSerializer, \
-    ManagerAdminSerializer
+    ManagerAdminSerializer, SaleModelSerializer
 
 
 class Pagination(PageNumberPagination):
@@ -60,6 +60,12 @@ class ManagerAdminListCreateView(ListCreateAPIView):
 class ManagerAdminRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
     queryset = ManagerAdmin.objects.all()
     serializer_class = ManagerAdminSerializer
+
+
+class SaleListCreateAPIView(ListCreateAPIView):
+    queryset = Sale.objects.all()
+    serializer_class = SaleModelSerializer
+
 
 
 class DailyBenefitView(APIView):

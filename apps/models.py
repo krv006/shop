@@ -1,7 +1,7 @@
 import uuid
 
 from django.db.models import Model, DateTimeField, UUIDField, TextField, CharField, IntegerField, ForeignKey, CASCADE, \
-    DateField, DecimalField, ManyToManyField, PositiveIntegerField
+    DateField, DecimalField, ManyToManyField, PositiveIntegerField, TextChoices
 from mptt.models import MPTTModel, TreeForeignKey
 
 
@@ -46,12 +46,16 @@ class Product(Base):  # product
 
 
 class Sale(Model):
-    product = ForeignKey(Product, on_delete=CASCADE, related_name='sales')
-    date = DateField()
-    quantity = PositiveIntegerField()
+    class SaleMethod(TextChoices):
+        TODAY = 'today', 'Today'
+        THREE_DAY = 'three-day', 'Three-day'
+        WEEK = 'week', 'Week'
+        MONTH = 'month', 'Month'
+        YEAR = 'year', 'Year'
 
-    def __str__(self):
-        return f"{self.product.name} - {self.quantity} pcs on {self.date}"
+    product = ForeignKey(Product, on_delete=CASCADE, related_name='sales')
+    sale_method = CharField(max_length=255, choices=SaleMethod)
+    created_at = DateTimeField(auto_now_add=True)  # Qo'shilgan sana
 
 
 class Warehouse(Base):  # sklad

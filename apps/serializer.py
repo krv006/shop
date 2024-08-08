@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer, SerializerMethodField, ReadOnlyField
-from apps.models import Category, Product, Debtors, Warehouse, ManagerAdmin
+from apps.models import Category, Product, Debtors, Warehouse, ManagerAdmin, Sale
 
 from decimal import Decimal
 import requests
@@ -75,4 +75,10 @@ class ManagerAdminSerializer(ModelSerializer):
 
     class Meta:
         model = ManagerAdmin
+        fields = '__all__'
+
+
+class SaleModelSerializer(ModelSerializer):
+    class Meta:
+        model = Sale
         fields = '__all__'

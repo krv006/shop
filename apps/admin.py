@@ -1,6 +1,6 @@
 from django.contrib import admin
 from mptt.admin import DraggableMPTTAdmin
-from apps.models import Category, Product, Debtors, Warehouse, ManagerAdmin
+from apps.models import Category, Product, Debtors, Warehouse, ManagerAdmin, Sale
 
 
 @admin.register(Category)
@@ -25,4 +25,9 @@ class WarehouseAdmin(admin.ModelAdmin):
 
 @admin.register(ManagerAdmin)
 class ManagerAdminAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Sale)
+class SaleAdminAdmin(admin.ModelAdmin):
     pass
