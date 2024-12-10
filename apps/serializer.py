@@ -53,6 +53,11 @@ class ProductSerializer(ModelSerializer):
         return Decimal(data['conversion_rates'].get(to_currency, 0))
 
 
+"""
+MANA SHU YERGA BOOK SHOPDAN NARSALARDI OLIB OTISH KERAK BOLADI 
+"""
+
+
 class DebtorsSerializer(ModelSerializer):
     class Meta:
         model = Debtors
