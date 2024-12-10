@@ -15,13 +15,13 @@ class CreatedAtBase(Model):
 
 class Base(CreatedAtBase):
     # id = UUIDField(primary_key=True, db_default=RandomUUID(), editable=False) # postgres da ishlatiladi
-    id = UUIDField(default=uuid.uuid4, primary_key=True)  # sqlite uchun basic
+    id = UUIDField(default=uuid.uuid4, primary_key=True)  # todo sqlite uchun basic
 
     class Meta:
         abstract = True
 
 
-class Category(MPTTModel, CreatedAtBase):  # category
+class Category(MPTTModel, CreatedAtBase):  # todo category
     name = CharField(max_length=255)
     parent = TreeForeignKey('self', on_delete=CASCADE, null=True, blank=True, related_name='children')
 
@@ -29,7 +29,7 @@ class Category(MPTTModel, CreatedAtBase):  # category
         return self.name
 
 
-class Product(Base):  # product
+class Product(Base):  # todo product
     name = CharField(max_length=255)
     description = TextField()
     arrival_price = IntegerField()  # kelish
@@ -55,7 +55,7 @@ class Sale(Model):
 
     product = ForeignKey(Product, on_delete=CASCADE, related_name='sales')
     sale_method = CharField(max_length=255, choices=SaleMethod)
-    created_at = DateTimeField(auto_now_add=True)  # Qo'shilgan sana
+    created_at = DateTimeField(auto_now_add=True)  # todo Qo'shilgan sana
 
 
 class Warehouse(Base):  # sklad
@@ -66,7 +66,7 @@ class Warehouse(Base):  # sklad
         return self.name
 
 
-class Debtors(Base):  # qarizdorlar
+class Debtors(Base):  # todo qarizdorlar
     full_name = CharField(max_length=250)
     phone_number = CharField(max_length=250, blank=True)
     product = ManyToManyField('apps.Product', related_name='debtor_product')
