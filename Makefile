@@ -7,3 +7,6 @@ run:
 
 admin:
 	python3 manage.py createsuperuser
+
+pip:
+	pip freeze > requirements.txt
